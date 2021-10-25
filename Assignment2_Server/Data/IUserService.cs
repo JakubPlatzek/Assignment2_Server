@@ -5,7 +5,7 @@ namespace Assignment1.Data
 {
     public interface IUserService
     {
-        Task<User> ValidateUser(string userName, string Password);
+        Task<User> ValidateUser(string userName, string password);
         Task<User> AddUser(User user);
     }
 }

@@ -18,6 +18,13 @@ namespace Assignment2_Server.Controllers
         {
             this.adultsData = adultsData;
         }
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<ActionResult<Adult>> GetAdult([FromRoute] int id)
+        {
+            Adult adult = await adultsData.Get(id);
+            return adult;
+        }
 
         [HttpGet]
         public async Task<ActionResult<IList<Adult>>> GetAdultsAsync([FromQuery] string jobTitle,
@@ -117,7 +124,7 @@ namespace Assignment2_Server.Controllers
         {
             try
             {
-                Adult adult = adultsData.Get(id);
+                Adult adult = await adultsData.Get(id);
                 await adultsData.RemoveAdult(adult.FirstName, adult.LastName);
                 return Ok(adult);
             }

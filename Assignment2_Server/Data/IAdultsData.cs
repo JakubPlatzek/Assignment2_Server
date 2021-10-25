@@ -10,6 +10,6 @@ namespace Assignment2_Server.Data
         Task<Adult> AddAdult(Adult adult);
         Task RemoveAdult(string firstName, string lastName);
         Task Update(Adult adult);
-        Adult Get(int id);
+        Task<Adult> Get(int id);
     }
 }

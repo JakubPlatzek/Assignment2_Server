@@ -30,15 +30,15 @@ namespace Assignment1.Data
             return user;
         }
 
-       public async Task<User> ValidateUser(string userName, string Password)
+       public async Task<User> ValidateUser(string userName, string password)
         {
-            User first = users.FirstOrDefault(user => user.UserName.Equals(userName) && user.Password.Equals(Password));
+            User first = users.FirstOrDefault(user => user.UserName.Equals(userName) && user.Password.Equals(password));
             if (first == null)
             {
                 throw new Exception("User not found");
             }
 
-            if (!first.Password.Equals(Password))
+            if (!first.Password.Equals(password))
             {
                 throw new Exception("Incorrect password");
             }

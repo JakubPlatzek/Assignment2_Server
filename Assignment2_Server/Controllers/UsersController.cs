@@ -18,12 +18,12 @@ namespace Assignment2_Server.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<User>> ValidateUser([FromBody] string userName, [FromBody] string password)
+        public async Task<ActionResult<User>> ValidateUser([FromQuery] string userName, [FromQuery] string password)
         {
             try
             {
-                User validateUser = await _userService.ValidateUser(userName, password);
-                return Ok(validateUser);
+                User validatedUser = await _userService.ValidateUser(userName, password);
+                return Ok(validatedUser);
             }
             catch (Exception e)
             {
@@ -37,7 +37,7 @@ namespace Assignment2_Server.Controllers
             try
             {
                 User added = await _userService.AddUser(user);
-                return Ok(added);
+                return Created($"/Users/{added.Registered}", added);
             }
             catch (Exception e)
             {

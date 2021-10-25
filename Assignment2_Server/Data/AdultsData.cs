@@ -64,8 +64,9 @@ namespace Assignment2_Server.Data
             fileContext.SaveChanges();
         }
 
-        public Adult Get(int id)
+        public async Task<Adult> Get(int id)
         {
+            Console.WriteLine(1);
             return adults.FirstOrDefault(t => t.Id == id);
         }
     }
