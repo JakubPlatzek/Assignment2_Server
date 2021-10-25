@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Assignment2_Server.Data;
 using Microsoft.AspNetCore.Mvc;
-using Models;
+using Assignment2_Server.Models;
 
 namespace Assignment2_Server.Controllers
 {
@@ -103,22 +103,22 @@ namespace Assignment2_Server.Controllers
         {
             try
             {
-                Adult added = adultsData.AddAdult(adult);
+                Adult added = await adultsData.AddAdult(adult);
                 return Created($"/{added.Id}", added);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                return StatusCode(500, e.Message);
+               return StatusCode(500, e.Message);
             }
         }
         [HttpDelete]
+        [Route("{id:int}")]
         public async Task<ActionResult<Adult>> DeleteAdultAsync([FromRoute] int id)
         {
             try
             {
                 Adult adult = adultsData.Get(id);
-                adultsData.RemoveAdult(adult.FirstName, adult.LastName);
+                await adultsData.RemoveAdult(adult.FirstName, adult.LastName);
                 return Ok(adult);
             }
             catch (Exception e)
@@ -128,13 +128,13 @@ namespace Assignment2_Server.Controllers
             }
         }
         
-        [HttpPut]
+        [HttpPatch]
         public async Task<ActionResult<Adult>> EditAdultAsync([FromBody]Adult adult)
         {
             try
             {
-                adultsData.Get(adult.Id);
-                return Ok(adult);
+                await adultsData.Update(adult);
+                return Ok();
             }
             catch (Exception e)
             {

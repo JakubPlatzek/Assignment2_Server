@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Models {
+namespace Assignment2_Server.Models {
 public class Child : Person {
     
     public List<Interest> Interests { get; set; }

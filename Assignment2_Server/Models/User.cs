@@ -1,4 +1,4 @@
-namespace Models
+namespace Assignment2_Server.Models
 {
     public class User
     {

@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Models {
+namespace Assignment2_Server.Models {
 public class Family
 {
     //public int Id { get; set; }

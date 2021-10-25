@@ -30,3 +30,4 @@ C:\Users\jakub\RiderProjects\Assignment2_Server\Assignment2_Server\obj\Debug\net
 C:\Users\jakub\RiderProjects\Assignment2_Server\Assignment2_Server\obj\Debug\net5.0\ref\Assignment2_Server.dll
 C:\Users\jakub\RiderProjects\Assignment2_Server\Assignment2_Server\obj\Debug\net5.0\Assignment2_Server.pdb
 C:\Users\jakub\RiderProjects\Assignment2_Server\Assignment2_Server\obj\Debug\net5.0\Assignment2_Server.genruntimeconfig.cache
+C:\Users\jakub\RiderProjects\Assignment2_Server\Assignment2_Server\bin\Debug\net5.0\Newtonsoft.Json.dll

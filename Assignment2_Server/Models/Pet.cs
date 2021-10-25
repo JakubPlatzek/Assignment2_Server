@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace Models {
+namespace Assignment2_Server.Models {
 public class Pet {
     public int Id { get; set; }
     public string Species { get; set; }

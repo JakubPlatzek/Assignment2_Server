@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using Models;
+using Assignment2_Server.Models;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Assignment2_Server.Persistence
 {
     public class FileContext : IFileContext
     {
-       public IList<Family> Families { get; private set; }
+        public IList<Family> Families { get; private set; }
         public IList<Adult> Adults { get; private set; }
         
         public IList<User> Users { get; private set; }
@@ -21,13 +24,16 @@ namespace Assignment2_Server.Persistence
             Families = File.Exists(familiesFile) ? ReadData<Family>(familiesFile) : new List<Family>();
             Adults = File.Exists(adultsFile) ? ReadData<Adult>(adultsFile) : new List<Adult>();
             Users = File.Exists(usersFile) ? ReadData<User>(usersFile) : new List<User>();
+            Console.WriteLine(Adults.ToString());
         }
 
         public IList<T> ReadData<T>(string s)
         {
             using (var jsonReader = File.OpenText(s))
             {
-                return JsonSerializer.Deserialize<List<T>>(jsonReader.ReadToEnd());
+                //return JsonSerializer.Deserialize<List<T>>(jsonReader.ReadToEnd());
+                JsonSerializerSettings settings = new() { TypeNameHandling = TypeNameHandling.All };
+                return JsonConvert.DeserializeObject<List<T>>(jsonReader.ReadToEnd(), settings);
             }
         }
 
