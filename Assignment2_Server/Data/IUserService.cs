@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Assignment2_Server.Models;
 
-namespace Assignment1.Data
+namespace Assignment2_Server.Data
 {
     public interface IUserService
     {

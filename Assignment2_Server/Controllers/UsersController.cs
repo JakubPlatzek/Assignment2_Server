@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Assignment1.Data;
+using Assignment2_Server.Data;
 using Assignment2_Server.Models;
 using Microsoft.AspNetCore.Mvc;
 

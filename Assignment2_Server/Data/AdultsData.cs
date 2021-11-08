@@ -1,56 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Assignment2_Server.Persistence;
 using Assignment2_Server.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignment2_Server.Data
 {
     public class AdultsData : IAdultsData
     {
-        private IList<Adult> adults;
-        private FileContext fileContext;
+        private IQueryable<Adult> Adults;
+        private EFCContext _efcContext;
 
         public AdultsData()
         {
-            fileContext = new FileContext();
-            adults = fileContext.Adults;
+            _efcContext = new EFCContext();
+            Adults = _efcContext.Adults;
         }
-        public async Task<IList<Adult>> GetAdults()
+        public async Task<IQueryable<Adult>> GetAdults()
         {
-            return adults;
+            return _efcContext.Adults;
         }
 
         public async Task<Adult> AddAdult(Adult adult)
         {
-            await Task.Run(() =>
-            {
-                int max = adults.Max(adult => adult.Id);
-                adult.Id = (++max);
-                adults.Add(adult);
-                fileContext.SaveChanges();
-            });
+            /*int max = Adults.Max(adult => adult.Id);
+                adult.Id = (++max);*/
+                await _efcContext.Adults.AddAsync(adult);
+            await _efcContext.SaveChangesAsync();
             return adult;
         }
 
         public async Task RemoveAdult(string firstName, string lastName)
         {
-            await Task.Run(() =>
-            {
-                Adult toRemove = adults.First(t => t.FirstName.Equals(firstName) && t.LastName.Equals(lastName));
-                adults.Remove(toRemove);
-            });
-            fileContext.SaveChanges();
+            Adult toRemove = await _efcContext.Adults.FirstAsync(t => t.FirstName.Equals(firstName) && t.LastName.Equals(lastName));
+                _efcContext.Adults.Remove(toRemove); 
+                await _efcContext.SaveChangesAsync();
         }
 
         public async Task Update(Adult adult)
         {
-            await Task.Run(() =>
-            {
-                Adult toUpdate = adults.First(t =>
+            Adult toUpdate = await _efcContext.Adults.FirstAsync(t =>
                     t.Id == adult.Id);
-                toUpdate.JobTitle= adult.JobTitle;
+                toUpdate.AdultJob= adult.AdultJob;
                 toUpdate.Age = adult.Age;
                 toUpdate.Height = adult.Height;
                 toUpdate.Id = adult.Id;
@@ -60,14 +51,12 @@ namespace Assignment2_Server.Data
                 toUpdate.FirstName = adult.FirstName;
                 toUpdate.LastName = adult.LastName;
                 toUpdate.HairColor = adult.HairColor;
-            });
-            fileContext.SaveChanges();
+                await _efcContext.SaveChangesAsync();
         }
 
         public async Task<Adult> Get(int id)
         {
-            Console.WriteLine(1);
-            return adults.FirstOrDefault(t => t.Id == id);
+            return _efcContext.Adults.FirstOrDefault(t => t.Id == id);
         }
     }
 }

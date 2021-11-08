@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Assignment2_Server.Data;
 using Microsoft.AspNetCore.Mvc;
 using Assignment2_Server.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignment2_Server.Controllers
 {
@@ -36,65 +38,64 @@ namespace Assignment2_Server.Controllers
             IList<Adult> adultsToShow = new List<Adult>();
             try
             {
-                IList<Adult> adults = await adultsData.GetAdults();
-                Console.WriteLine(adults[1].FirstName);
+                IQueryable<Adult> adults = await adultsData.GetAdults();
                 if (id != null)
                 {
-                    adultsToShow = adults.Where(t => t.Id == id).ToList();
+                    adultsToShow = await adults.Where(t => t.Id == id).ToListAsync();
                 }
                 else if (jobTitle != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.JobTitle.JobTitle.ToString().Equals(jobTitle)).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.AdultJob.JobTitle.ToString().Equals(jobTitle)).ToListAsync();
                 }
                 else if (salary != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.JobTitle.Salary.ToString().Equals(salary)).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.AdultJob.Salary.ToString().Equals(salary)).ToListAsync();
                 }
                 else if (age != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.Age == age).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.Age == age).ToListAsync();
                 }
                 else if (height != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.Height == height).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.Height == height).ToListAsync();
                 }
                 else if (firstName != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.FirstName.ToString().Equals(firstName)).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.FirstName.ToString().Equals(firstName)).ToListAsync();
                 }
                 else if (lastName != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.LastName.ToString().Equals(lastName)).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.LastName.ToString().Equals(lastName)).ToListAsync();
                 }
                 else if (hairColor != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.HairColor.ToString().Equals(hairColor)).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.HairColor.ToString().Equals(hairColor)).ToListAsync();
                 }
                 else if (eyeColor != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.EyeColor.ToString().Equals(eyeColor)).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.EyeColor.ToString().Equals(eyeColor)).ToListAsync();
                 }
                 else if (weight != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.Weight == weight).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.Weight == weight).ToListAsync();
                 }
                 else if (sex != null)
                 {
-                    adultsToShow = adults.Where(t =>
-                        t.Sex.ToString().Equals(sex)).ToList();
+                    adultsToShow = await adults.Where(t =>
+                        t.Sex.ToString().Equals(sex)).ToListAsync();
                 }
                 else
                 {
-                    adultsToShow = adults;
+                    adultsToShow = await adults.ToListAsync();
                 }
                 return Ok(adultsToShow);
             }

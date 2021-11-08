@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Assignment1.Data;
 using Assignment2_Server.Data;
 using Assignment2_Server.Persistence;
 using Microsoft.AspNetCore.Builder;
@@ -32,7 +31,7 @@ namespace Assignment2_Server
             services.AddControllers();
             services.AddSingleton<IAdultsData, AdultsData>();
             services.AddScoped<IUserService, UserService>();
-            services.AddSingleton<IFileContext, FileContext>();
+            //services.AddSingleton<IFileContext, FileContext>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Assignment2_Server", Version = "v1"});
