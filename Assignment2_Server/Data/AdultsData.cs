@@ -18,13 +18,14 @@ namespace Assignment2_Server.Data
         }
         public async Task<IQueryable<Adult>> GetAdults()
         {
-            return _efcContext.Adults;
+            return _efcContext.Adults.Include("Job");
         }
 
         public async Task<Adult> AddAdult(Adult adult)
         {
             /*int max = Adults.Max(adult => adult.Id);
                 adult.Id = (++max);*/
+                
                 await _efcContext.Adults.AddAsync(adult);
             await _efcContext.SaveChangesAsync();
             return adult;
@@ -41,7 +42,7 @@ namespace Assignment2_Server.Data
         {
             Adult toUpdate = await _efcContext.Adults.FirstAsync(t =>
                     t.Id == adult.Id);
-                toUpdate.AdultJob= adult.AdultJob;
+                toUpdate.Job= adult.Job;
                 toUpdate.Age = adult.Age;
                 toUpdate.Height = adult.Height;
                 toUpdate.Id = adult.Id;

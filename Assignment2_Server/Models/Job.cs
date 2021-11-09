@@ -5,8 +5,7 @@ namespace Assignment2_Server.Models
 {
     public class Job
     {
-        [Key] 
-        public int Id { get; set; }
+        [Key]
         public string JobTitle { get; set; }
         public int Salary { get; set; }
     }

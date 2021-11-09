@@ -4,6 +4,6 @@ using System.Text.Json.Serialization;
 
 namespace Assignment2_Server.Models {
 public class Adult : Person {
-    public Job AdultJob { get; set; }
+    public Job Job { get; set; }
 }
 }

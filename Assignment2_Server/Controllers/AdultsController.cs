@@ -39,6 +39,7 @@ namespace Assignment2_Server.Controllers
             try
             {
                 IQueryable<Adult> adults = await adultsData.GetAdults();
+                Console.WriteLine(await adultsData.GetAdults());
                 if (id != null)
                 {
                     adultsToShow = await adults.Where(t => t.Id == id).ToListAsync();
@@ -46,12 +47,12 @@ namespace Assignment2_Server.Controllers
                 else if (jobTitle != null)
                 {
                     adultsToShow = await adults.Where(t =>
-                        t.AdultJob.JobTitle.ToString().Equals(jobTitle)).ToListAsync();
+                        t.Job.JobTitle.ToString().Equals(jobTitle)).ToListAsync();
                 }
                 else if (salary != null)
                 {
                     adultsToShow = await adults.Where(t =>
-                        t.AdultJob.Salary.ToString().Equals(salary)).ToListAsync();
+                        t.Job.Salary.ToString().Equals(salary)).ToListAsync();
                 }
                 else if (age != null)
                 {
